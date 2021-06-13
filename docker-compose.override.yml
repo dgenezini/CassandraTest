@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  cassandra1:
+    container_name: cassandra1vs
+
+  cassandra2:
+    container_name: cassandra2vs
+
+  cassandra3:
+    container_name: cassandra3vs
+
+  netcorecassandra:
+    image: ${DOCKER_REGISTRY-}netcorecassandra
+    container_name: netcorecassandravs
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "80"
+      - "443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
